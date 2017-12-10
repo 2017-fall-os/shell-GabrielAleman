@@ -1,0 +1,42 @@
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "mytoc.h"
+#include "test.h"
+
+int main(int arg, char * argv[]){
+  
+  char ** array;
+  char delim;
+  delim = argv[1][0];
+  char * temp;
+  temp = argv[2];
+  loop = compareString(temp);
+  array = mytoc(temp,delim);
+  printArray(temp,array,delim);
+  freeMem(temp, array,delim);
+
+}
+
+
+
+
+int compareString(char * string){
+  int loop = 0;
+  int compare = 0;
+  char terminator [] = "exit";
+  while(string[loop] != '\n' && loop < 4){
+    if(string[loop] == terminator[loop]){
+      compare++;
+    }
+    loop++;
+  }
+  if(compare == 4){
+    return 0;
+  }
+  else{
+    return 1;
+  }
+}
+    
+     

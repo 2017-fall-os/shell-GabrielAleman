@@ -1,0 +1,47 @@
+#include <unistd.h>
+#include <stdio.h>
+#include "mytoc.h"
+
+void ex(char*a[],char*b[]);
+
+int main(int args, char**argv,char**envp){
+  char delim[1];
+  char ** array;
+  char ** ar[30];
+  char hi[100];
+  int loop;
+  // read(0,delim,1);
+  //read(0,hi,100);
+  
+  for(loop = 0;envp[loop] != (char*)0; loop++){
+    array = mytoc(envp[loop],'=');
+    ar[loop]=array;
+    if(array[0][0] == 'P',array[0][1] == 'A',array[0][2] == 'T',array[0][3] == 'H'){
+      write(1,array[1],20);
+      break;
+    }
+  }
+  int counter = loop;
+  write(1,array[counter],20);
+  char *a[] = {"./shell", delim, "hi hi",NULL};
+  char *b[] = { NULL};
+  int as = 0;
+  ex(a,b);
+  printf("%s",delim);
+  loop = 0;
+  while(loop != counter){
+    freeMem(envp[loop],ar[loop],'=');
+    //if(array[0][0] == 'P',array[0][1] == 'A',array[0][2] == 'T',array[0][3] == 'H'){
+    // break;
+    //}
+    loop++;
+  }
+  printf("%i-=-------------------",loop);
+}
+
+
+void ex(char*a[],char*b[]){
+  int as = 0;
+  as = execve("./mytoc",a,b);
+  printf("%i",as);
+}

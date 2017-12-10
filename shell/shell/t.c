@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <unistd.h>
+#include "mytoc.h"
+
+int main(int args,char*argp[],char*envp[]){
+  char * spaceConvert(char * word);
+  pid_t pid;
+  int i;
+  char ** array;
+  char * st;
+  int x = 1;
+  pid = fork();
+  while(x){
+    char output[] = {"write _ as a space this will not apply on your first argument\n"};
+    write(1,output,62);
+    char print[] = {"$ "};
+    write(1,print,2);
+    char h[100];
+    read(0,h,100);
+    char ** array;
+    array = mytoc(h,' ');
+    char delim[1];
+    int s = 1;
+    st = h;
+    char**temp = array;
+    temp[0] = array[0];
+    write(1,array[2],10);
+    while(s!=3){
+      if(temp[s]!=NULL){
+	temp[s] = spaceConvert(array[s]);
+      }
+      s++;
+    }
+    
+    delim[0] = temp[1][0];
+    temp[2] = array[2];
+    
+    //  freeMem(h,array,' ');
+    write(1,temp[2],10);
+    // printf("this is child\n");
+    char * arg[] = {temp[0], delim, temp[2] , NULL};
+    char * env[] = {NULL};
+    pid = fork();
+    if(pid = 0){
+    execve("./mytoc",arg,env);
+    }
+    else{
+      wait(NULL);
+      x=0;
+    }
+  }
+  printf("hi");
+}
+
+
+char * spaceConvert(char * word){
+  int i = 0;
+  while(word[i] != '\0' && word[i] != '\n'){
+    if(word[i] == '_'){
+      word[i] = ' ';
+    }
+    i++;
+  }
+  return word;
+}
